@@ -1,14 +1,17 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { fetchMovies } from "../services/api"
 import "../style/home.css"
-import { HiOutlineHome, HiOutlineSearch, HiOutlineStar, HiOutlineUser, HiOutlineMoon, HiOutlinePlus } from "react-icons/hi"
-
+import { HiOutlineHome, HiOutlineSearch, HiOutlineStar, HiOutlineUser, HiOutlineMoon, HiOutlinePlus} from "react-icons/hi"
+import Carousel from "./carousel.js"
 
 
 export default function Home() {
 
     const [movies, setMovies] = useState([])
     const [loading, setLoading] = useState(true)
+    const destaqueRef = useRef(null)
+    const recomendadosRef = useRef(null)
+
 
     useEffect(() => {
         async function loadMovies() {
@@ -27,26 +30,28 @@ export default function Home() {
 
     if (loading) return <p style={{ color: "white" }}>Carregando filmes...</p>
 
+
     return (
 
         <div>
             <header>
 
-                <div class="navbar">
-                    <div class="nav-left">
-                        <a class="navbar-brand" href="/"> <HiOutlineHome /> </a>
-                        <a class="navbar-brand" href="/favoritos"> <HiOutlineStar color="white" /> </a>
-                        <a class="navbar-brand" href="/categorias"> Categorias </a>
+                <div className="navbar">
+                    <div className="nav-left">
+                        <a className="navbar-brand" href="/"> <HiOutlineHome /> </a>
+                        <a className="navbar-brand" href="/favoritos"> <HiOutlineStar color="white" /> </a>
+                        <a className="navbar-brand" href="/categorias"> Categorias </a>
                     </div>
 
-                    <div class="nav-center">
-                        <button className="search-btn">
+                    <div className="nav-center">
+                        <button className="searh-btn">
                             <HiOutlineSearch size={20}></HiOutlineSearch>
                         </button>
 
                     </div>
-                    <div class="nav-right">
-                        <a class="navbar-brand" href="/perfil"> <HiOutlineUser color="white" /> </a>
+                    <div className="nav-right">
+                        <a className="navbar-brand" href="/perfil"> <HiOutlineUser color="white" /> </a>
+                        <button><HiOutlineMoon /></button>
                         <button><HiOutlineMoon /></button>
 
                     </div>
@@ -67,31 +72,9 @@ export default function Home() {
                     </section>
 
                 )}
-
-                <div className="movie-row">
-                    <h2>Filmes em destaque</h2>
-                    <div className="movie-scrool">
-                        {movies.map((movie) => (
-                            <div key={movie.id} className="movie_card_individual">
-                                <img className="movie_image" src={movie.image} alt={movie.title} width={100}></img>
-                                <h3>{movie.title}</h3>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
-                <div className="movie-row">
-                    <h2>Mais recomendados</h2>
-                    <div className="movie-scrool">
-                        {movies.map((movie) => (
-                            <div key={movie.id} className="movie_card_individual">
-                                <img className="movie_image" src={movie.image} alt={movie.title} width={100}></img>
-                                <h3>{movie.title}</h3>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
+             
+                <Carousel title="Filmes em destaque" movies={movies.slice(0, 13)} scrollRef={destaqueRef} />
+                <Carousel title="Mais recomendados" movies={movies.slice(14, 22)} scrollRef={recomendadosRef} />
 
             </main>
         </div>

@@ -1,7 +1,7 @@
 
 import "../style/home.css"
 
-export default function Home(){
+export default function Favoritos(){
 
     return(
         
