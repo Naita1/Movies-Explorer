@@ -1,7 +1,7 @@
 import { HiOutlineChevronLeft, HiOutlineChevronRight } from "react-icons/hi"
 import "../style/home.css"
 
-function Carousel({ title, movies, scrollRef }) {
+function Carousel({ title, movies, scrollRef, onSelectMovie }) {
   const scroll = (direction) => {
     if (scrollRef.current) {
       scrollRef.current.scrollBy({
@@ -21,8 +21,8 @@ function Carousel({ title, movies, scrollRef }) {
 
         <div className="movie-scroll" ref={scrollRef}>
           {movies?.map((movie) => (
-            <div key={movie.id} className="movie_card_individual">
-              <img className="movie_image" src={movie.image} alt={movie.title} loading="lazy" />
+            <div key={movie.id} className="movie_card_individual"  onClick={() => onSelectMovie(movie)}>
+              {/* <img className="movie_image" src={movie.image} alt={movie.title} loading="lazy" /> */}
               <h3>{movie.title}</h3>
             </div>
           ))}

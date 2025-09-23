@@ -30,31 +30,40 @@ body {
     position: sticky;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
-    background-color: #222;
+    padding: 20px 30px;
+    background: rgba(34,34,34,0.8);
+    backdrop-filter: blur(10px);
     color: white;
     top: 0;
     z-index: 999;
+    transition: background 0.3s;
+    
 }
 
-.nav-left, .nav-center, .nav-right{
-    display: flex;
-    align-items: center;
-    gap: 15px;
+.nav-left, .nav-center, .nav-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
+
+.navbar a, .navbar button {
+  color: white;
+  background: none;
+  border: none;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s ease, color 0.3s;
+}
 .navbar a:hover {
   color: pink;
   transition: color 0.3s;
-  transform:scale(1.1) ;
 }
 
-
-.navbar a{
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-}
 
 .search-btn, .theme-btn{
     background: none;
@@ -114,15 +123,22 @@ body {
     z-index: 2; 
 }
 
-.banner-info h2{
-    font-size: 2rem;
+
+.banner-info h2, .modal-card h2{
+    font-size: 1.7rem;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+}
+
+.modal-card p{
+    font-size: 1.2rem;
     margin-bottom: 10px;
     text-shadow: 0 2px 8px rgba(0,0,0,0.7);
 }
 
 
 
-.banner-info button{
+.banner-info button, .modal-card button, .modal-btn button{
     background-color: #222;
     border: none;
     color: white;
@@ -131,13 +147,16 @@ body {
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.banner-info button:hover{
+.banner-info button:hover, .modal-card button:hover{
     background-color: snow;
     color: #222;
-    transform: scale(1.05);
-    box-shadow: 0 0 10px rgba(255,255,255,0.6);
+    transform: scale(1);
 }
 
 
@@ -236,8 +255,8 @@ body {
     padding: 8px;
     border-radius: 50%;
     z-index: 2;
-      background: rgba(255,255,255,0.2);
-  transition: background 0.3s;
+    background: rgba(255,255,255,0.2);
+    transition: transform 0.3s background 0.3s;
 }
 
 .scroll-btn:hover{
@@ -257,4 +276,55 @@ body {
     min-width: 120px;
     max-width: 140px;
   }
+}
+
+.modal-overlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  background-color: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+
+.modal-card{
+  background-color: #222;
+  color: snow;
+  padding: 20px;
+  border-radius: 30px;
+  max-width: 70%;
+  max-height: 90%;
+  overflow-y: auto;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+  animation: fadeIn 0.5s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.modal-close-btn{
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border-radius: 90%;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: transform 0.2s;
+}
+
+
+.modal-close-btn:hover {
+  transform: scale(1.2);
+  color: pink;
 }
